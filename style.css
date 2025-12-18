@@ -139,31 +139,20 @@
         }
 
         /* --- Pricing --- */
-        .pricing-card {
+        .pricing-card, .pricing-popular {
             border: 2px solid #f1f5f9;
             padding: 2.5rem;
         }
         .pricing-popular {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            /* background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
             transform: scale(1.05);
             position: relative;
-            z-index: 10;
+            z-index: 10; */
         }
-        .badge-popular {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #facc15; /* Yellow */
-            color: black;
-            font-weight: bold;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-        }
+
+      
         .pricing-popular .text-muted {
             color: rgba(255,255,255,0.8) !important;
         }

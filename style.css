@@ -188,14 +188,25 @@
             width: 80px; height: 80px;
             background: var(--primary-light);
             color: var(--primary);
-            border-radius: 25px;
+            border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 2rem;
             margin: 0 auto 1.5rem;
-            transform: rotate(-10deg);
+            transform: rotate(0deg);
             transition: var(--transition);
+            ;
         }
-        .service-card:hover .service-icon { transform: rotate(0deg) scale(1.1); }
+        .service-card:hover .service-icon { transform: rotate(-10deg) scale(1.1); }
+
+        .icon-one{
+            background-color:#9d21ff4a;
+        }
+        .icon-two{
+            background-color: #dc354559;
+        }
+        .icon-three{
+            background-color: #86b7fe75
+        }
 
         /* --- Footer --- */
         footer {

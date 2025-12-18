@@ -122,10 +122,12 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s, box-shadow 0.3s;
             overflow: hidden;
+            background-color: #ecf2f9;
         }
         .card-custom:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            background-color: papayawhip;
         }
         .icon-box {
             width: 60px;
@@ -157,7 +159,7 @@
             color: rgba(255,255,255,0.8) !important;
         }
         .pricing-popular ul li i {
-            color: white !important;
+            color: #5e04ef !important;
         }
 
 

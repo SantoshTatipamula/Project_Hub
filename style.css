@@ -122,13 +122,29 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s, box-shadow 0.3s;
             overflow: hidden;
-            background-color: #ecf2f9;
+            background: linear-gradient(45deg, #FDCFFA, #00000000);;
         }
         .card-custom:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
             background-color: papayawhip;
         }
+        
+        .card-custom-browse{
+            border: 1px solid #f1f5f9;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+            background-color: rgba(123, 174, 249,0.2);
+        }
+        
+        .card-custom-browse:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            background-color: rgb(55 136 255 / 19%);
+        }
+
         .icon-box {
             width: 60px;
             height: 60px;
@@ -145,14 +161,15 @@
             border: 2px solid #f1f5f9;
             padding: 2.5rem;
         }
-        .pricing-popular {
-            /* background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+
+        /* .pricing-popular {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
             transform: scale(1.05);
             position: relative;
-            z-index: 10; */
-        }
+            z-index: 10;
+        } */
 
       
         .pricing-popular .text-muted {

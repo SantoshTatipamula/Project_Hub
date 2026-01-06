@@ -41,6 +41,23 @@ body {
   background-color: rgba(255, 255, 255, 0.9);
 }
 
+.brand-logo{
+  background-color: red;
+  border-radius: 50% !important;
+}
+.brand-logo i{
+  color: white;
+}
+.brand-name{
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-red) !important;
+}
+
+[data-theme="light"] .brand-name{
+  color: var(--primary-red) !important;
+}
+
 .nav-link {
   color: var(--text-zinc-400) !important;
   font-size: 0.9rem;
@@ -79,12 +96,43 @@ body {
   box-shadow: 0 0 20px rgba(220, 38, 38, 0.12);
 }
 
+.btn-red-nav {
+  background-color: var(--primary-red);
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 8px 14px;
+  transition: 0.3s;
+  font-size: 0.9rem;
+  border: 1px solid var(--primary-red);
+}
+
 .btn-outline-zinc {
+  border: 1px solid var(--primary-red);
+  color: var(--text-color);
+  font-weight: 700;
+  padding: 10px 20px;
+  background: transparentvar;
+}
+
+.btn-outline-zinc:hover {
   border: 1px solid var(--border-zinc-800);
   color: var(--text-color);
   font-weight: 700;
-  padding: 12px 30px;
-  background: transparent;
+  padding: 10px 20px;
+  background: var(--primary-red);
+}
+
+[data-theme="light"] .btn-outline-zinc {
+  color: var(--text-color) !important;
+  background: transparent !important;
+}
+
+[data-theme="light"] .btn-outline-zinc:hover {
+  color: var(--text-color) !important;
+  background: var(--primary-red) !important;
+  color: #fff !important;
+  transition: background 0.5s, color 0.2s;
 }
 
 /* Login Button Style */
@@ -93,7 +141,7 @@ body {
   color: var(--primary-red);
   border: 1.5px solid var(--primary-red);
   font-weight: 700;
-  padding: 8px 22px;
+  padding: 5px 14px;
   border-radius: 8px;
   transition:
     background 0.25s,
@@ -213,6 +261,10 @@ body {
   color: var(--primary-red);
 }
 
+[data-theme="light"] .text-red {
+  color: var(--primary-red);
+}
+
 /* Comparison Cards */
 .comp-card {
   background: var(--bg-zinc-900);
@@ -229,9 +281,10 @@ body {
 }
 
 .comp-card.featured {
-  border: 2px solid rgba(220, 38, 38, 0.5);
+  border: 1.5px solid rgba(220, 38, 38, 0.5);
   position: relative;
 }
+
 
 .recommended-badge {
   position: absolute;
@@ -274,6 +327,10 @@ body {
 .price-card {
   background: var(--bg-zinc-900);
   border: 1px solid var(--border-zinc-800);
+  transition:
+    transform 0.35s cubic-bezier(.22, 1, .36, 1),
+    border-color 0.35s cubic-bezier(.22, 1, .36, 1),
+    box-shadow 0.35s cubic-bezier(.22, 1, .36, 1);
   padding: 40px;
   border-radius: 20px;
 }
@@ -283,7 +340,7 @@ body {
 }
 
 .price-card.best-value {
-  border: 2px solid var(--primary-red);
+  border: 1px solid rgba(220, 38, 38, 0.5);
 }
 
 /* Utility */
@@ -414,17 +471,12 @@ li {
 }
 
 /* Minor adjustments: buttons that used text-white */
-[data-theme="light"] .btn-red,
-[data-theme="light"] .btn-outline-zinc {
-  color: #fff;
-  /* keep red buttons with white text */
+[data-theme="light"] .btn-red{
+  color: #ffffff;
 }
 
 /* make outline button text visible on light bg */
-[data-theme="light"] .btn-outline-zinc {
-  color: var(--text-color) !important;
-  background: transparent !important;
-}
+
 
 /* Mobile-specific adjustments: show hamburger up to 425px, move actions into sidebar and keep padding equal */
 .mobile-toggle {
@@ -783,42 +835,23 @@ li {
 }
 
 /* Unified card hover effect for all cards */
-.comp-card:hover,
-.step-card:hover,
+/* .step-card:hover,
 .price-card:hover,
 .stat-card:hover {
   transform: translateY(-6px);
   border-color: rgba(220, 38, 38, 0.5);
   box-shadow: 0 20px 40px rgba(220, 38, 38, 0.12);
   z-index: 2;
-}
+} */
 
 /* Light theme: keep the effect consistent */
-[data-theme="light"] .comp-card:hover,
-[data-theme="light"] .step-card:hover,
+/* [data-theme="light"] .step-card:hover,
 [data-theme="light"] .price-card:hover,
 [data-theme="light"] .stat-card:hover {
   border-color: rgba(220, 38, 38, 0.5);
   box-shadow: 0 20px 40px rgba(220, 38, 38, 0.12);
-}
+} */
 
-/* Remove hover effect for "Why We Choose" section's cards (assuming .comp-card) */
-.comp-card:hover,
-[data-theme="light"] .comp-card:hover {
-  /* Reset transform, border, and shadow for comp-card on hover */
-  transform: none !important;
-  border-color: var(--border-zinc-800) !important;
-  box-shadow: none !important;
-  z-index: 1;
-}
-
-/* Smooth, extra-support-like hover effect for pricing cards */
-.price-card {
-  transition:
-    transform 0.35s cubic-bezier(.22, 1, .36, 1),
-    border-color 0.35s cubic-bezier(.22, 1, .36, 1),
-    box-shadow 0.35s cubic-bezier(.22, 1, .36, 1);
-}
 
 .price-card:hover,
 [data-theme="light"] .price-card:hover {
@@ -968,10 +1001,11 @@ li {
 
 /* Quote */
 .quote-icon {
-  font-size: 3rem;
+  font-size: 5rem;
   color: rgba(220, 38, 38, 0.25);
   line-height: 1;
   margin-bottom: 10px;
+  font-family:'Times New Roman', Times, serif;
 }
 
 /* Stars */

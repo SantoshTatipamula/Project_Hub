@@ -30,7 +30,7 @@
 [data-theme="light"] .testimonials-section,
 [data-theme="light"] .faq-section,
 [data-theme="light"] .final-cta-section {
-  background: #fdfffc!important;
+  background: #fdfffc !important;
 }
 
 /* 2. BASE STYLES */
@@ -45,22 +45,28 @@ body {
 .logo-color {
   color: white;
 }
+
 .text-white {
   color: var(--text-color) !important;
 }
+
 .text-red {
   color: var(--primary-red) !important;
 }
+
 .text-zinc {
   color: var(--text-zinc-400) !important;
 }
+
 .section-padding {
   padding: 100px 0;
 }
+
 ul {
   list-style: none;
   padding: 0;
 }
+
 li {
   margin-bottom: 12px;
   display: flex;
@@ -73,7 +79,6 @@ li {
 .brand-logo i {
   font-size: 1.2rem;
 }
-
 
 /* 3. CARD UNIFICATION */
 .comp-card,
@@ -121,6 +126,34 @@ li {
   box-shadow: 0 20px 40px rgba(220, 38, 38, 0.12);
 }
 
+
+/* =========================================
+   PRICING LIST – HARD RESET (FINAL FIX)
+   ========================================= */
+
+/* Reset global li behavior ONLY inside price cards */
+.price-card ul li {
+  display: grid;                 /* 🔑 FIX */
+  grid-template-columns: 20px 1fr;
+  align-items: start;
+  gap: 12px;
+  line-height: 1.45;
+}
+
+/* Lock icon size */
+.price-card ul li i[data-lucide] {
+  width: 20px;
+  height: 20px;
+}
+
+/* Force SVG to respect container */
+.price-card ul li i[data-lucide] svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+}
+
+
 /* 4. NAVIGATION & BUTTONS (Logic Updated) */
 .navbar {
   background-color: rgba(0, 0, 0, 0.8);
@@ -128,12 +161,14 @@ li {
   border-bottom: 1px solid var(--border-zinc-800);
   transition: padding 0.3s ease;
 }
+
 [data-theme="light"] .navbar {
   background-color: rgba(255, 255, 255, 0.9);
 }
 
 .mobile-toggle {
-  display: none; /* Hidden on Desktop by default */
+  display: none;
+  /* Hidden on Desktop by default */
   color: white;
 }
 
@@ -141,32 +176,24 @@ li {
   background-color: var(--primary-red);
   border-radius: 50% !important;
 }
+
 .brand-name {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--primary-red) !important;
 }
+
 .nav-link {
   color: var(--text-zinc-400) !important;
   font-size: 0.9rem;
   transition: color 0.2s;
 }
+
 .nav-link:hover,
 .hover-red:hover {
   color: var(--primary-red) !important;
 }
 
-/* .logo-box {
-  background-color: var(--primary-red);
-  color: white;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  font-weight: bold;
-} */
 
 .btn-red,
 .btn-red-nav {
@@ -177,10 +204,12 @@ li {
   padding: 10px 20px;
   transition: 0.3s;
 }
+
 .btn-red-nav {
   padding: 8px 14px;
   font-size: 0.9rem;
 }
+
 .btn-red:hover {
   background-color: #b91c1c;
   box-shadow: 0 0 20px rgba(220, 38, 38, 0.2);
@@ -195,6 +224,7 @@ li {
   border-radius: 8px;
   transition: all 0.25s;
 }
+
 .btn-login:hover {
   background: var(--primary-red);
   color: #fff;
@@ -207,6 +237,7 @@ li {
   padding: 10px 20px;
   background: transparent;
 }
+
 .btn-outline-zinc:hover {
   background: var(--primary-red);
   color: #fff !important;
@@ -224,30 +255,23 @@ li {
   justify-content: center;
   align-items: center;
 }
+
 .icon-sun,
 [data-theme="light"] .icon-moon {
   display: none;
 }
+
 [data-theme="light"] .icon-sun {
   display: inline-block;
 }
 
-/* #theme-toggle svg {
-  width: 30px;
-  height: 30px;
-}
-
-/* Mobile toggle */
-#theme-toggle-mobile svg {
-  width: 30px;
-  height: 30px;
-} */
 
 /* 6. HERO & SPECIFIC SECTIONS */
 .hero-section {
-  padding: 100px 0;
   position: relative;
+  padding: 100px 0;
 }
+
 .hero-glow {
   position: absolute;
   top: 0;
@@ -263,6 +287,7 @@ li {
   z-index: -1;
   filter: blur(60px);
 }
+
 [data-theme="light"] .hero-glow {
   background: radial-gradient(
     circle,
@@ -270,16 +295,28 @@ li {
     transparent 70%
   );
 }
+
 .hero-title {
   font-size: 4rem;
   font-weight: 800;
   line-height: 1.1;
 }
 
+.badge-zinc {
+    background: var(--bg-zinc-900);
+    border: 1px solid var(--border-zinc-800);
+    color: var(--text-zinc-400);
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
 .comp-card.featured {
   border: 1.5px solid rgba(220, 38, 38, 0.5);
   position: relative;
 }
+
 .recommended-badge {
   position: absolute;
   top: -12px;
@@ -300,6 +337,7 @@ li {
 .faq-section {
   background-color: var(--bg-zinc-950);
 }
+
 [data-theme="dark"] .bg-extra-support,
 [data-theme="dark"] .how-it-works,
 [data-theme="dark"] .testimonials-section,
@@ -317,28 +355,31 @@ li {
   justify-content: space-between;
   margin-bottom: 22px;
 }
+
 .step-number {
   font-size: 2.2rem;
   font-weight: 800;
   color: rgba(220, 38, 38, 0.25);
 }
+
 .support-icon,
 .step-icon,
 .avatar {
   width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: rgba(220, 38, 38, 0.15);
-    color: var(--primary-red);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 18px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(220, 38, 38, 0.15);
+  color: var(--primary-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
 }
 
 /* QUOTE ICON */
-.quote-icon , [data-theme="light"] .quote-icon {
-  font-family: 'Times New Roman', Times, serif;
+.quote-icon,
+[data-theme="light"] .quote-icon {
+  font-family: "Times New Roman", Times, serif;
   font-size: 5rem;
   color: var(--primary-red);
   opacity: 0.4;
@@ -346,7 +387,8 @@ li {
 }
 
 /* STARS */
-.stars, [data-theme="light"] .stars { 
+.stars,
+[data-theme="light"] .stars {
   color: var(--primary-red);
 }
 
@@ -359,6 +401,7 @@ li {
   margin-bottom: 14px;
   overflow: hidden;
 }
+
 .faq-accordion .accordion-button {
   background: transparent;
   color: var(--text-color);
@@ -376,14 +419,10 @@ li {
 .faq-accordion .accordion-button::after {
   filter: invert(1);
 }
+
 [data-theme="light"] .faq-accordion .accordion-button::after {
   filter: none;
 }
-
-
-/* =========================================
-   INPUT BOX – UPDATED DESIGN (SAFE)
-   ========================================= */
 
 /* Newsletter input wrapper */
 /* =========================================
@@ -423,13 +462,12 @@ li {
 [data-theme="light"] .newsletter-group .form-control {
   background-color: #f5f5f5;
   color: #111827;
+  border: 2px solid var(--border-zinc-800);
 }
 
 [data-theme="light"] .newsletter-group .form-control::placeholder {
   color: #6b7280;
 }
-
-
 
 /* 9. SCROLL REVEAL */
 .reveal {
@@ -438,6 +476,7 @@ li {
   transition: opacity 0.6s ease, transform 0.6s ease;
   will-change: opacity, transform;
 }
+
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
@@ -452,9 +491,11 @@ li {
   .mobile-toggle {
     display: none !important;
   }
+
   .navbar-collapse {
     display: flex !important;
   }
+
   .navbar-actions {
     display: flex !important;
   }
@@ -464,10 +505,14 @@ li {
 @media (max-width: 991px) {
   .mobile-toggle {
     display: inline-flex !important;
-  } /* Shows hamburger ONLY here */
+  }
+
+  /* Shows hamburger ONLY here */
   .navbar-actions {
     display: none !important;
-  } /* Moves these to the sidebar */
+  }
+
+  /* Moves these to the sidebar */
   .navbar-collapse {
     display: none !important;
   }
@@ -475,6 +520,7 @@ li {
   .hero-title {
     font-size: 3.2rem;
   }
+
   .section-padding {
     padding: 80px 0;
   }
@@ -485,6 +531,7 @@ li {
   .hero-title {
     font-size: 2.8rem;
   }
+
   .stat-card,
   .support-card,
   .testimonial-card {
@@ -499,9 +546,11 @@ li {
     width: 100%;
     overflow-x: hidden !important;
   }
+
   .hero-title {
     font-size: 2.2rem;
   }
+
   .navbar .container {
     padding-left: 12px !important;
     padding-right: 12px !important;
@@ -517,17 +566,40 @@ li {
     transform: translateX(100%);
     transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
   }
+
   .offcanvas.offcanvas-end.show {
     transform: translateX(0);
   }
 
-   .offcanvas.offcanvas-end.hiding {
+  .offcanvas.offcanvas-end.hiding {
     transform: translateX(100%);
   }
 }
+  /* =========================================
+   FOOTER – CENTER ALIGN (MOBILE ONLY)
+   ========================================= */
 
-/* 11. LIGHT THEME CLEANUP */
+  @media (max-width: 425px) {
+    footer,
+    footer > .py-4 .container {
+      text-align: center;
+    }
 
+    /* Center brand (logo + name) */
+    footer .navbar-brand,
+    footer .d-flex.gap-3,
+    footer .footer-links li,
+    footer > .py-4 .d-flex {
+      justify-content: center;
+    }
+
+    /* Center description text */
+    footer p,
+    footer .newsletter-group {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 
 
 /* =========================================
@@ -538,7 +610,6 @@ footer {
   background-color: #000000;
   border-top: 1px solid var(--border-zinc-800);
 }
-
 
 /* Headings */
 footer h6 {
@@ -558,6 +629,7 @@ footer a {
 .footer-brand {
   margin-bottom: 20px;
 }
+
 /* Description */
 footer p.small {
   line-height: 1.6;
@@ -634,6 +706,19 @@ footer .badge {
   padding: 4px 8px;
   background-color: transparent;
   color: var(--text-zinc-400);
+}
+
+footer .upi-icon img,footer .social-media-icon {
+  height: 25px;
+  width: auto;
+  border-radius: 50%;
+}
+
+.chat-on-whatsapp {
+  height: 30px;
+  width: auto;
+  margin-left: 3px;
+  vertical-align: middle;
 }
 
 /* =========================================
@@ -730,7 +815,6 @@ footer .badge {
 [data-theme="light"] #theme-toggle-mobile svg {
   color: #111827 !important;
 }
-
 
 [data-theme="light"] svg,
 [data-theme="light"] i[data-lucide] {

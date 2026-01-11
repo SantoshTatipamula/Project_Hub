@@ -1,76 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login | Project Hub</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="./style.css" /> <script src="https://unpkg.com/lucide@latest"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Project Hub</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg sticky-top">
+  <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center text-white" href="index.html">
-            <div class="brand-logo text-white rounded p-1 d-flex align-items-center justify-content-center"
-                style="width: 40px; height: 40px">
-                <i class="fa-solid fa-graduation-cap logo-color"></i>
-            </div>
-            <span class="brand-name">Project Hub</span>
-        </a>
-
-        <div class="d-flex align-items-center gap-3">
-            <button id="theme-toggle" class="btn btn-theme-toggle d-flex align-items-center justify-content-center"
-                aria-label="Toggle theme">
-                <i data-lucide="sun" class="icon-sun"></i>
-                <i data-lucide="moon" class="icon-moon"></i>
-            </button>
-            <a href="index.html" class="btn btn-login d-none d-md-block">Home</a>
+      <a class="navbar-brand d-flex align-items-center text-white" href="index.html">
+        <div class="brand-logo text-white rounded p-1 d-flex align-items-center justify-content-center"
+          style="width: 40px; height: 40px">
+          <i class="fa-solid fa-graduation-cap logo-color"></i>
         </div>
-    </div>
-</nav>
+        <span class="brand-name ms-2">Project Hub</span>
+      </a>
 
-<main class="login-section">
+      <div class="d-flex align-items-center gap-3">
+        <button id="theme-toggle" class="btn btn-theme-toggle d-flex align-items-center justify-content-center"
+          aria-label="Toggle theme">
+          <i data-lucide="sun" class="icon-sun"></i>
+          <i data-lucide="moon" class="icon-moon"></i>
+        </button>
+        <a href="index.html" class="btn btn-login d-none d-sm-block">Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="login-wrapper">
     <div class="hero-glow"></div>
-    <div class="container">
-        <div class="login-card reveal active">
-            <div class="text-center mb-4">
-                <h2 class="fw-bold">Welcome <span class="text-red">Back</span></h2>
-                <p class="text-zinc small">Enter your details to access projects</p>
-            </div>
-
-            <form id="loginForm">
-                <div class="mb-3">
-                    <label class="auth-label">Email Address</label>
-                    <input type="email" class="auth-input" placeholder="e.g. name@example.com" required>
-                </div>
-                <div class="mb-3">
-                    <label class="auth-label">Password</label>
-                    <input type="password" class="auth-input" placeholder="••••••••" required>
-                </div>
-                <button type="submit" class="btn btn-red w-100 py-2 rounded-3 fw-bold">Sign In</button>
-                
-                <div class="auth-separator">OR LOGIN WITH</div>
-
-                <div class="row g-2">
-                    <div class="col-6">
-                        <button type="button" class="btn btn-social-auth w-100">
-                            <img src="./assets/Google.png" width="18" alt="Google"> Google
-                        </button>
-                    </div>
-                    <div class="col-6">
-                        <button type="button" class="btn btn-social-auth w-100">
-                            <img src="./assets/github.png" width="18" alt="GitHub"> GitHub
-                        </button>
-                    </div>
-                </div>
-            </form>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100-nav">
+      <div class="login-card-refined reveal active">
+        <div class="text-center mb-4">
+          <h2 class="auth-title">
+            Welcome <span class="text-red">Back</span>
+          </h2>
+          <p class="text-zinc small">
+            Login to manage your academic projects
+          </p>
         </div>
-    </div>
-</main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./js/script.js"></script> <script>lucide.createIcons();</script>
+        <form id="loginForm">
+          <div class="mb-3">
+            <label class="auth-label">Email Address</label>
+            <input type="email" id="email" class="auth-input" placeholder="Enter your email" required />
+            <div id="emailError" class="error-feedback"></div>
+          </div>
+          <div class="mb-3">
+            <label class="auth-label">Password</label>
+            <input type="password" id="password" class="auth-input" placeholder="••••••••" required />
+            <div id="passwordError" class="error-feedback"></div>
+            <div class="text-end mt-2">
+              <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+            </div>
+          </div>
+
+          <button type="submit" id="loginBtn"
+            class="btn btn-red w-100 py-2-5 rounded-3 fw-bold mb-3 d-flex align-items-center justify-content-center">
+            <span id="btnText">Sign In</span>
+            <div id="btnSpinner" class="spinner-border spinner-border-sm ms-2" role="status" style="display: none;">
+              <span class="visually-hidden text-white ">Loading...</span>
+            </div>
+          </button>
+          <div id="auth-alert" class="auth-popup"></div>
+
+          <p class="text-center text-zinc small">
+            Don't have an account?
+            <a href="register.html" class="text-red fw-bold text-decoration-none">Create Account</a>
+          </p>
+
+          <div class="row g-3">
+            <div class="col-6">
+              <button type="button" class="btn btn-social-auth w-100">
+                <img src="./assets/Google.png" alt="Google" class="social-icon" />
+                <span>Google</span>
+              </button>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-social-auth w-100">
+                <img src="./assets/github.png" alt="GitHub" class="social-icon" />
+                <span>GitHub</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./script.js"></script>
 </body>
+
 </html>

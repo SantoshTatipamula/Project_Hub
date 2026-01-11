@@ -126,14 +126,13 @@ li {
   box-shadow: 0 20px 40px rgba(220, 38, 38, 0.12);
 }
 
-
 /* =========================================
    PRICING LIST – HARD RESET (FINAL FIX)
    ========================================= */
 
 /* Reset global li behavior ONLY inside price cards */
 .price-card ul li {
-  display: grid;                 /* 🔑 FIX */
+  display: grid; /* 🔑 FIX */
   grid-template-columns: 20px 1fr;
   align-items: start;
   gap: 12px;
@@ -152,7 +151,6 @@ li {
   height: 20px;
   stroke-width: 2;
 }
-
 
 /* 4. NAVIGATION & BUTTONS (Logic Updated) */
 .navbar {
@@ -194,7 +192,6 @@ li {
   color: var(--primary-red) !important;
 }
 
-
 .btn-red,
 .btn-red-nav {
   background-color: var(--primary-red);
@@ -225,9 +222,16 @@ li {
   transition: all 0.25s;
 }
 
+.btn-login a {
+  color: var(--primary-red);
+  text-decoration: none;
+}
+.btn-login:hover a {
+  color: #fff;
+}
+
 .btn-login:hover {
   background: var(--primary-red);
-  color: #fff;
 }
 
 .btn-outline-zinc {
@@ -264,7 +268,6 @@ li {
 [data-theme="light"] .icon-sun {
   display: inline-block;
 }
-
 
 /* 6. HERO & SPECIFIC SECTIONS */
 .hero-section {
@@ -303,14 +306,14 @@ li {
 }
 
 .badge-zinc {
-    background: var(--bg-zinc-900);
-    border: 1px solid var(--border-zinc-800);
-    color: var(--text-zinc-400);
-    padding: 5px 15px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    display: inline-block;
-    margin-bottom: 1.5rem;
+  background: var(--bg-zinc-900);
+  border: 1px solid var(--border-zinc-800);
+  color: var(--text-zinc-400);
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  display: inline-block;
+  margin-bottom: 1.5rem;
 }
 .comp-card.featured {
   border: 1.5px solid rgba(220, 38, 38, 0.5);
@@ -482,121 +485,61 @@ li {
   transform: translateY(0);
 }
 
-
-
-/* =========================================
-   11. REFINED LOGIN & REGISTER STYLES
-   ========================================= */
-.login-section {
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 60px 0;
-}
-
-/* Reusing your card logic with high-end refinements */
-.login-card {
-    background: var(--bg-zinc-900);
-    border: 1px solid var(--border-zinc-800);
-    padding: 40px;
-    border-radius: 24px;
-    width: 100%;
-    max-width: 450px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-}
-
-/* Visibility Fix for Labels */
-.auth-label {
-    color: var(--text-color) !important;
-    font-size: 0.85rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    display: block;
-}
-
-/* Input Styling */
-.auth-input {
-    width: 100%;
-    background-color: var(--bg-black) !important;
-    border: 1px solid var(--border-zinc-800) !important;
-    color: var(--text-color) !important;
-    padding: 12px 16px;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-}
-
-.auth-input:focus {
-    border-color: var(--primary-red) !important;
-    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1) !important;
-    outline: none;
-}
-
-/* "Or continue with" Separator Visibility */
-.auth-separator {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin: 25px 0;
-    color: var(--text-zinc-400);
-    font-size: 0.8rem;
-}
-
-.auth-separator::before, .auth-separator::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid var(--border-zinc-800);
-}
-
-.auth-separator:not(:empty)::before { margin-right: .75em; }
-.auth-separator:not(:empty)::after { margin-left: .75em; }
-
-/* Social Buttons Visibility */
-.btn-social-auth {
-    background: transparent;
-    border: 1px solid var(--border-zinc-800);
-    color: var(--text-color) !important;
-    padding: 12px;
-    border-radius: 12px;
-    font-weight: 600;
-    transition: 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.btn-social-auth:hover {
-    border-color: var(--primary-red);
-    background: rgba(220, 38, 38, 0.05);
-}
-
-/* Light Theme Overrides (White & Red) */
-[data-theme="light"] .login-card {
-    background: #ffffff;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
-    border-color: #f3f4f6;
-}
-
-[data-theme="light"] .auth-input {
-    background-color: #f9fafb !important;
-    border-color: #e5e7eb !important;
-}
-
-[data-theme="light"] .auth-separator::before, 
-[data-theme="light"] .auth-separator::after {
-    border-color: #e5e7eb;
-}
-
-
-
 /* ==========================================================
    10. UPDATED RESPONSIVE BREAKPOINTS (Fixes Tablet/Laptop Issue)
    ========================================================== */
 
-/* Laptop/Desktop (Large Screens) */
+/* =========================================
+   SCOPED PRICING FIX (768px - 1024px)
+   ========================================= */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* 1. Target only the pricing row to prevent global overflow */
+  #pricing .row,
+  .pricing-section .row {
+    display: flex !important;
+    flex-wrap: nowrap !important; /* Forces cards to stay in one row */
+    align-items: stretch !important; /* Ensures equal card height */
+    margin-left: -10px !important;
+    margin-right: -10px !important;
+    width: calc(100% + 20px) !important;
+  }
+
+  /* 2. Precision sizing for the 3 columns */
+  #pricing .col-md-4,
+  .pricing-section .col-md-4 {
+    flex: 1 1 33.33% !important; /* Allows cards to shrink to fit the view */
+    max-width: 33.33% !important;
+    padding: 0 10px !important; /* Tighter gutters for tablet */
+  }
+
+  /* 3. Card Internal Layout */
+  .price-card {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    padding: 20px 15px !important; /* Smaller padding prevents content overflow */
+  }
+
+  /* 4. The "Sticky" Button Logic */
+  .price-card ul {
+    flex-grow: 1 !important; /* Fills empty space to push button down */
+    margin-bottom: 20px !important;
+    font-size: 0.85rem !important; /* Prevents long text from wrapping too much */
+  }
+
+  .price-card h2 {
+    font-size: 1.5rem !important; /* Shrinks price text slightly */
+    margin: 15px 0 !important;
+  }
+
+  .price-card .btn {
+    width: 100% !important;
+    margin-top: auto !important; /* Final safety for button alignment */
+    font-size: 0.9rem !important;
+  }
+}
+
 @media (min-width: 992px) {
   .mobile-toggle {
     display: none !important;
@@ -685,32 +628,31 @@ li {
     transform: translateX(100%);
   }
 }
-  /* =========================================
+/* =========================================
    FOOTER – CENTER ALIGN (MOBILE ONLY)
    ========================================= */
 
-  @media (max-width: 425px) {
-    footer,
-    footer > .py-4 .container {
-      text-align: center;
-    }
-
-    /* Center brand (logo + name) */
-    footer .navbar-brand,
-    footer .d-flex.gap-3,
-    footer .footer-links li,
-    footer > .py-4 .d-flex {
-      justify-content: center;
-    }
-
-    /* Center description text */
-    footer p,
-    footer .newsletter-group {
-      margin-left: auto;
-      margin-right: auto;
-    }
+@media (max-width: 768px) {
+  footer,
+  footer > .py-4 .container {
+    text-align: center;
   }
 
+  /* Center brand (logo + name) */
+  footer .navbar-brand,
+  footer .d-flex.gap-3,
+  footer .footer-links li,
+  footer > .py-4 .d-flex {
+    justify-content: center;
+  }
+
+  /* Center description text */
+  footer p,
+  footer .newsletter-group {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 
 /* =========================================
    FOOTER – AUTHORITATIVE STYLES (REPLACEMENT)
@@ -818,7 +760,8 @@ footer .badge {
   color: var(--text-zinc-400);
 }
 
-footer .upi-icon img,footer .social-media-icon {
+footer .upi-icon img,
+footer .social-media-icon {
   height: 25px;
   width: auto;
   border-radius: 50%;
@@ -917,17 +860,300 @@ footer .upi-icon img,footer .social-media-icon {
 [data-theme="light"] #theme-toggle-mobile {
   background-color: #ffffff;
   color: #111827 !important;
-  border: 1px solid var(--border-zinc-800);
+  border: 1px solid balck;
+}
+
+[data-theme="light"] #theme-toggle-mobile:hover {
+  background-color: #000000;
+  color: #ffffff !important;
+  border: 1px solid black;
 }
 
 /* Toggle icon */
-[data-theme="light"] #theme-toggle-mobile i,
+/* [data-theme="light"] #theme-toggle-mobile i,
 [data-theme="light"] #theme-toggle-mobile svg {
+  color: #111827 !important;
+} */
+
+/* [data-theme="light"] #theme-toggle-mobile i:hover,
+[data-theme="light"] #theme-toggle-mobile svg:hover {
+  color: #ffffff !important;
+} */
+
+/* [data-theme="light"] svg,
+[data-theme="light"] i[data-lucide] {
+  color: inherit;
+} */
+
+/* ------------------------------------------------------------------
+ ------------------------------------------------------------------
+LOGIN PAGE REFINEMENTS
+ ------------------------------------------------------------------
+------------------------------------------------------------------ */
+
+/* Fix to keep card within screen height minus navbar */
+.min-vh-100-nav {
+  min-height: calc(100vh - 80px);
+}
+
+.login-wrapper {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.login-card-refined {
+  background: var(--bg-zinc-900);
+  border: 1px solid var(--border-zinc-800);
+  padding: clamp(1.5rem, 5vw, 2.5rem); /* Fluid padding */
+  border-radius: 24px;
+  width: 100%;
+  max-width: 420px;
+  z-index: 5;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+/* Fluid Typography */
+.auth-title {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 800;
+}
+
+.auth-label {
+  color: var(--text-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.auth-input {
+  width: 100%;
+  background-color: var(--bg-black) !important;
+  border: 1px solid var(--border-zinc-800) !important;
+  color: var(--text-color) !important;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.auth-input:focus {
+  border-color: var(--primary-red) !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15) !important;
+  outline: none;
+}
+
+.py-2-5 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* --- Forgot Password Link --- */
+.forgot-link {
+  color: var(--text-zinc-400);
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgot-link:hover {
+  color: var(--primary-red);
+}
+
+/* --- Social Buttons Alignment & Visibility --- */
+.btn-social-auth {
+  background: var(--bg-zinc-900); /* Darker gray for contrast */
+  border: 1px solid var(--border-zinc-800);
+  color: var(--text-color) !important;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+/* Specific visibility boost for Dark Mode */
+[data-theme="dark"] .btn-social-auth {
+  background: #121214; /* Slightly lighter than pure black */
+  border-color: #2d2d30;
+}
+
+.btn-social-auth:hover {
+  border-color: var(--primary-red);
+  background: rgba(220, 38, 38, 0.05);
+  transform: translateY(-2px);
+}
+
+.social-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+/* --- Validation UI --- */
+.auth-input.is-invalid {
+  border-color: #dc3545 !important; /* Red border */
+  background-image: none !important;
+}
+
+.auth-input.is-valid {
+  border-color: #198754 !important; /* Green border */
+  background-image: none !important;
+}
+
+/* Optional: Add a subtle glow for errors in Dark Mode */
+[data-theme="dark"] .auth-input.is-invalid {
+  box-shadow: 0 0 8px rgba(220, 53, 69, 0.2) !important;
+}
+
+[data-theme="dark"] .auth-input.is-valid {
+  box-shadow: 0 0 8px rgba(25, 135, 84, 0.2) !important;
+}
+
+
+/* --- Autofill Styling Fix --- */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    /* This overrides the blue/yellow background */
+    -webkit-box-shadow: 0 0 0 1000px var(--bg-black) inset !important;
+    /* This overrides the black text color to match your theme */
+    -webkit-text-fill-color: var(--text-color) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Ensure the border stays visible based on validation status during autofill */
+input.is-valid:-webkit-autofill {
+    border-color: #10b981 !important;
+}
+
+input.is-invalid:-webkit-autofill {
+    border-color: #ff4d4d !important;
+}
+
+/* Real-time Error Text */
+.error-feedback {
+  color: #ff4d4d;
+  font-size: 0.75rem;
+  margin-top: 5px;
+  height: 18px; /* Prevents jumping */
+  font-weight: 500;
+}
+
+/* Custom Alert Popup */
+/* --- Updated Auth Popup --- */
+.auth-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    z-index: 9999;
+    /* Default hidden state */
+    display: none; 
+    opacity: 0;
+    transform: translateX(120%);
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.auth-popup.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Spinner Color Match */
+.spinner-border-sm {
+    --bs-spinner-width: 1rem;
+    --bs-spinner-height: 1rem;
+    --bs-spinner-border-width: 0.15em;
+}
+
+/* Ensure the spinner is visible on the red button regardless of theme */
+#btnSpinner {
+    border-color: rgba(241, 153, 153, 0.842); /* Transparent white border */
+    border-right-color: #ff0505; 
+    /* color: white; */
+}
+
+/* Red/Black/White Theme for Alerts */
+.popup-success {
+  background: #10b981;
+  border-left: 5px solid #064e3b;
+}
+.popup-error {
+  background: #ef4444;
+  border-left: 5px solid #7f1d1d;
+}
+
+/* Validation border colors */
+.auth-input.is-invalid {
+  border-color: #ff4d4d !important;
+}
+.auth-input.is-valid {
+  border-color: #10b981 !important;
+}
+
+/* --- Responsive Alignment --- */
+@media (max-width: 400px) {
+  .btn-social-auth {
+    font-size: 0.8rem;
+    padding: 10px 8px;
+  }
+  .btn-social-auth span {
+    display: inline-block; /* Keeps text visible but prevents overlap */
+  }
+}
+
+/* Light Theme Social Buttons */
+[data-theme="light"] .btn-social-auth {
+  background: #ffffff;
+  border-color: #e5e7eb;
+  color: #374151 !important;
+}
+
+[data-theme="light"] .btn-social-auth:hover {
+  background: #fef2f2;
+  border-color: var(--primary-red);
+}
+
+/* Light Mode Overrides */
+[data-theme="light"] .login-card-refined {
+  background: #ffffff;
+  border-color: #f0f0f0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .auth-input {
+  background-color: #f8f9fa !important;
+  border-color: #e2e8f0 !important;
   color: #111827 !important;
 }
 
-[data-theme="light"] svg,
-[data-theme="light"] i[data-lucide] {
-  color: inherit;
+[data-theme="light"] .auth-label {
+  color: #1f2937;
 }
+
+/* Responsive Mobile Adjustments */
+@media (max-width: 480px) {
+  .login-card-refined {
+    border-radius: 20px;
+    padding: 20px;
+  }
+
+  .min-vh-100-nav {
+    align-items: flex-start; /* Better for scrolling on short phones */
+    padding-top: 20px;
+  }
+}
+
 

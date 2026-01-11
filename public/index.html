@@ -32,15 +32,25 @@
             <div class="collapse navbar-collapse justify-content-center">
                 <ul class="navbar-nav gap-4">
                     <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pricing">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#why-choose-us">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#faq-section">FAQ</a></li>
                 </ul>
             </div>
 
             <div class="d-flex align-items-center gap-3 navbar-actions">
-                <button class="btn btn-login"><a href="./login.html">Login</a></button>
-                <!-- Theme toggle (desktop) -->
+
+                <div id="user-profile-nav" style="display: none;">
+                    <a href="profile.html" class="btn btn-theme-toggle d-flex align-items-center justify-content-center"
+                        title="User Profile">
+                        <i data-lucide="user"></i>
+                    </a>
+                </div>
+
+                <div id="login-nav">
+                    <button class="btn btn-login"><a href="./login.html">Login</a></button>
+                </div>
+
                 <button id="theme-toggle" class="btn btn-theme-toggle d-flex align-items-center justify-content-center"
                     aria-label="Toggle theme" title="Toggle theme">
                     <i data-lucide="sun" class="icon-sun"></i>
@@ -63,7 +73,7 @@
                     style="width: 40px; height: 40px">
                     <i class="fa-solid fa-graduation-cap logo-color"></i>
                 </div>
-                <span class=" brand-name">Project Hub</span>
+                <span class="brand-name">Project Hub</span>
             </a>
             <button type="button" class="btn-close btn-close-white " data-bs-dismiss="offcanvas"
                 aria-label="Close"></button>
@@ -75,21 +85,28 @@
                     <a class="nav-link text-white" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Projects</a>
+                    <a class="nav-link text-white" href="#pricing">Projects</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Features</a>
+                    <a class="nav-link text-white" href="#why-choose-us">Features</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">FAQ</a>
+                    <a class="nav-link text-white" href="#faq-section">FAQ</a>
                 </li>
             </ul>
 
             <div class="d-flex flex-column gap-3 mt-3">
-                <!-- <button class="btn btn-login w-100 mb-2"><a href="./login.html">Login</a></button> -->
-                <button class="btn btn-login"><a href="./login.html">Login</a></button>
+                <div id="mobile-profile-nav" style="display: none;">
+                    <a href="profile.html"
+                        class="btn btn-outline-light w-100 d-flex align-items-center justify-content-center gap-2">
+                        <i data-lucide="user"></i> My Profile
+                    </a>
+                </div>
 
-                <!-- Theme toggle (mobile) -->
+                <div id="mobile-login-nav">
+                    <button class="btn btn-login w-100"><a href="./login.html">Login</a></button>
+                </div>
+
                 <button id="theme-toggle-mobile"
                     class="btn btn-outline-light d-flex align-items-center justify-content-center">
                     <i data-lucide="sun" class="me-2"></i> Toggle theme
@@ -163,7 +180,7 @@
         </div>
     </header>
 
-    <section class="section-padding bg-zinc-950 reveal">
+    <section class="section-padding bg-zinc-950 reveal" id="why-choose-us">
         <div class="container">
             <div class="text-center mb-5">
                 <small class="text-red fw-bold text-uppercase tracking-widest">Why Choose Us</small>
@@ -330,7 +347,7 @@
         </div>
     </section>
 
-    <section class="section-padding bg-zinc-950 reveal">
+    <section class="section-padding bg-zinc-950 reveal" id="pricing">
         <div class="container">
             <div class="text-center mb-5">
                 <small class="text-red fw-bold text-uppercase tracking-widest">Pricing</small>
@@ -366,8 +383,8 @@
                     </div>
                 </div>
                 <div class="col-md-4 reveal delay-2">
-                    <div class="price-card best-value professional>
-                        <h6 class="fw-bold">Professional</h6>
+                    <div class="price-card best-value professional">
+                        <h6 class=" fw-bold">Professional</h6>
                         <h2 class="fw-black my-4">₹2,500</h2>
                         <ul class="text-white small mb-5">
                             <li>
@@ -393,8 +410,8 @@
                     </div>
                 </div>
                 <div class="col-md-4 reveal delay-3">
-                    <div class="price-card enterprise
-                        <h6 class="fw-bold">Enterprise</h6>
+                    <div class="price-card enterprise">
+                        <h6 class=" fw-bold">Enterprise</h6>
                         <h2 class="fw-black my-4">₹3,800</h2>
                         <ul class="text-zinc small mb-5">
                             <li>
@@ -564,7 +581,7 @@
         </div>
     </section>
 
-    <section class="section-padding faq-section reveal">
+    <section class="section-padding faq-section reveal" id="faq-section">
         <div class="container">
 
             <!-- Heading -->
@@ -581,7 +598,7 @@
             <div class="accordion faq-accordion mx-auto" id="faqAccordion">
 
                 <!-- Item 1 -->
-                <div class="accordion-item reveal>
+                <div class="accordion-item reveal">
         <h2 class=" accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#faq1">
@@ -691,10 +708,14 @@
                         instantly.
                     </p>
                     <div class="d-flex gap-3 mt-4">
-                        <a href="#" class="text-zinc hover-red"><img class="social-media-icon" src="./assets/instagram.png" alt="instagram"></a>
-                        <a href="#" class="text-zinc hover-red"><img class="social-media-icon" src="./assets/twitter.png" alt="twitter"></a>
-                        <a href="#" class="text-zinc hover-red"><img class="social-media-icon" src="./assets/github.png" alt="github"></a>
-                        <a href="#" class="text-zinc hover-red"><img class="social-media-icon" src="./assets/linkedin.png" alt="linkedin"></a>
+                        <a href="#" class="text-zinc hover-red"><img class="social-media-icon"
+                                src="./assets/instagram.png" alt="instagram"></a>
+                        <a href="#" class="text-zinc hover-red"><img class="social-media-icon"
+                                src="./assets/twitter.png" alt="twitter"></a>
+                        <a href="#" class="text-zinc hover-red"><img class="social-media-icon" src="./assets/github.png"
+                                alt="github"></a>
+                        <a href="#" class="text-zinc hover-red"><img class="social-media-icon"
+                                src="./assets/linkedin.png" alt="linkedin"></a>
                     </div>
                 </div>
 
@@ -740,19 +761,19 @@
                 </p>
                 <div class="d-flex align-items-center gap-2">
                     <span class="text-zinc small">Secure Payments via:</span>
+                    <span class="bg-zinc-900 border-zinc-800 text-zinc fw-normal upi-icon"><img src="./assets/GPay.png"
+                            alt="GooglePay"></span>
                     <span class="bg-zinc-900 border-zinc-800 text-zinc fw-normal upi-icon"><img
-                                src="./assets/GPay.png" alt="GooglePay"></span>
-                    <span class="bg-zinc-900 border-zinc-800 text-zinc fw-normal upi-icon"><img
-                                src="./assets/PhonePay.png" alt="PhonePay"></span>
-                    <span class="bg-zinc-900 border-zinc-800 text-zinc fw-normal upi-icon"><img
-                                src="./assets/Paytm.png" alt="Paytm"></span>
+                            src="./assets/PhonePay.png" alt="PhonePay"></span>
+                    <span class="bg-zinc-900 border-zinc-800 text-zinc fw-normal upi-icon"><img src="./assets/Paytm.png"
+                            alt="Paytm"></span>
                 </div>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./script.js"></script>
+    <script type="module" src="./script.js"></script>
 </body>
 
 </html>

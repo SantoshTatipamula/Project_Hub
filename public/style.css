@@ -860,7 +860,7 @@ footer .social-media-icon {
 [data-theme="light"] #theme-toggle-mobile {
   background-color: #ffffff;
   color: #111827 !important;
-  border: 1px solid balck;
+  border: 1px solid black;
 }
 
 [data-theme="light"] #theme-toggle-mobile:hover {
@@ -1157,3 +1157,6 @@ input.is-invalid:-webkit-autofill {
 }
 
 
+::-webkit-scrollbar {
+  width: 8px;
+}

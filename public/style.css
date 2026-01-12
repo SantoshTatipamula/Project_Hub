@@ -7,11 +7,9 @@
   --text-zinc-400: #a1a1aa;
   --border-zinc-800: #27272a;
   --text-color: #ffffff;
-  --card-gradient: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.04),
-    rgba(0, 0, 0, 0.85)
-  );
+  --card-gradient: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(0, 0, 0, 0.85));
 }
 
 [data-theme="light"] {
@@ -132,7 +130,8 @@ li {
 
 /* Reset global li behavior ONLY inside price cards */
 .price-card ul li {
-  display: grid; /* 🔑 FIX */
+  display: grid;
+  /* 🔑 FIX */
   grid-template-columns: 20px 1fr;
   align-items: start;
   gap: 12px;
@@ -226,6 +225,7 @@ li {
   color: var(--primary-red);
   text-decoration: none;
 }
+
 .btn-login:hover a {
   color: #fff;
 }
@@ -273,6 +273,8 @@ li {
 .hero-section {
   position: relative;
   padding: 100px 0;
+  z-index: 1;
+  overflow: visible;
 }
 
 .hero-glow {
@@ -282,21 +284,17 @@ li {
   transform: translateX(-50%);
   width: 500px;
   height: 500px;
-  background: radial-gradient(
-    circle,
-    rgba(220, 38, 38, 0.15) 0%,
-    transparent 70%
-  );
-  z-index: -1;
+  background: radial-gradient(circle,
+      rgba(220, 38, 38, 0.15) 0%,
+      transparent 70%);
+  z-index: 0;
   filter: blur(60px);
 }
 
 [data-theme="light"] .hero-glow {
-  background: radial-gradient(
-    circle,
-    rgba(220, 38, 38, 0.08) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(220, 38, 38, 0.08) 0%,
+      transparent 70%);
 }
 
 .hero-title {
@@ -315,6 +313,7 @@ li {
   display: inline-block;
   margin-bottom: 1.5rem;
 }
+
 .comp-card.featured {
   border: 1.5px solid rgba(220, 38, 38, 0.5);
   position: relative;
@@ -332,6 +331,22 @@ li {
   color: white;
 }
 
+/* Ensure all interactive elements are clickable */
+.btn, 
+.nav-link, 
+.accordion-button, 
+.mobile-toggle,
+#theme-toggle {
+  position: relative;
+  z-index: 10; 
+  pointer-events: auto !important;
+}
+
+.hero-glow {
+  pointer-events: none !important; /* This allows clicks to pass through to buttons */
+  z-index: -1;
+}
+
 /* 7. STEP & SUPPORT EXTRAS */
 .bg-extra-support,
 .how-it-works,
@@ -345,11 +360,9 @@ li {
 [data-theme="dark"] .how-it-works,
 [data-theme="dark"] .testimonials-section,
 [data-theme="dark"] .final-cta-section {
-  background-image: radial-gradient(
-    circle at top,
-    rgba(220, 38, 38, 0.08),
-    transparent 70%
-  );
+  background-image: radial-gradient(circle at top,
+      rgba(220, 38, 38, 0.08),
+      transparent 70%);
 }
 
 .step-card-header {
@@ -472,10 +485,10 @@ li {
   color: #6b7280;
 }
 
-/* 9. SCROLL REVEAL */
+/* 9. SCROLL REVEAL - Updated for Mobile Reliability */
 .reveal {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(30px);
   transition: opacity 0.6s ease, transform 0.6s ease;
   will-change: opacity, transform;
 }
@@ -483,6 +496,15 @@ li {
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Force visibility if JavaScript fails or on small screens */
+@media (max-width: 991px) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 /* ==========================================================
@@ -494,12 +516,15 @@ li {
    ========================================= */
 
 @media (min-width: 768px) and (max-width: 1024px) {
+
   /* 1. Target only the pricing row to prevent global overflow */
   #pricing .row,
   .pricing-section .row {
     display: flex !important;
-    flex-wrap: nowrap !important; /* Forces cards to stay in one row */
-    align-items: stretch !important; /* Ensures equal card height */
+    flex-wrap: nowrap !important;
+    /* Forces cards to stay in one row */
+    align-items: stretch !important;
+    /* Ensures equal card height */
     margin-left: -10px !important;
     margin-right: -10px !important;
     width: calc(100% + 20px) !important;
@@ -508,9 +533,11 @@ li {
   /* 2. Precision sizing for the 3 columns */
   #pricing .col-md-4,
   .pricing-section .col-md-4 {
-    flex: 1 1 33.33% !important; /* Allows cards to shrink to fit the view */
+    flex: 1 1 33.33% !important;
+    /* Allows cards to shrink to fit the view */
     max-width: 33.33% !important;
-    padding: 0 10px !important; /* Tighter gutters for tablet */
+    padding: 0 10px !important;
+    /* Tighter gutters for tablet */
   }
 
   /* 3. Card Internal Layout */
@@ -518,24 +545,29 @@ li {
     display: flex !important;
     flex-direction: column !important;
     height: 100% !important;
-    padding: 20px 15px !important; /* Smaller padding prevents content overflow */
+    padding: 20px 15px !important;
+    /* Smaller padding prevents content overflow */
   }
 
   /* 4. The "Sticky" Button Logic */
   .price-card ul {
-    flex-grow: 1 !important; /* Fills empty space to push button down */
+    flex-grow: 1 !important;
+    /* Fills empty space to push button down */
     margin-bottom: 20px !important;
-    font-size: 0.85rem !important; /* Prevents long text from wrapping too much */
+    font-size: 0.85rem !important;
+    /* Prevents long text from wrapping too much */
   }
 
   .price-card h2 {
-    font-size: 1.5rem !important; /* Shrinks price text slightly */
+    font-size: 1.5rem !important;
+    /* Shrinks price text slightly */
     margin: 15px 0 !important;
   }
 
   .price-card .btn {
     width: 100% !important;
-    margin-top: auto !important; /* Final safety for button alignment */
+    margin-top: auto !important;
+    /* Final safety for button alignment */
     font-size: 0.9rem !important;
   }
 }
@@ -557,8 +589,25 @@ li {
 /* Tablet & Smaller Laptops (Breakpoint where Navbar collapses) */
 @media (max-width: 991px) {
   .mobile-toggle {
-    display: inline-flex !important;
+    display: block !important;
+    z-index: 1050;
+    position: relative;
   }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+  }
+
+  main,
+  section {
+    position: relative;
+    z-index: 1;
+    display: block !important;
+  }
+
+  
 
   /* Shows hamburger ONLY here */
   .navbar-actions {
@@ -577,6 +626,11 @@ li {
   .section-padding {
     padding: 80px 0;
   }
+
+    .hero-section {
+    min-height: auto !important;
+    padding-bottom: 60px;
+  }
 }
 
 /* Tablets & Large Phones */
@@ -594,11 +648,15 @@ li {
 
 /* Small Phones (iPhone/Android Breakpoint) */
 @media (max-width: 425px) {
+
   html,
   body {
     width: 100%;
     overflow-x: hidden !important;
   }
+  .navbar-actions {
+        display: none !important; /* Hide desktop buttons on very small phones */
+    }
 
   .hero-title {
     font-size: 2.2rem;
@@ -628,13 +686,15 @@ li {
     transform: translateX(100%);
   }
 }
+
 /* =========================================
    FOOTER – CENTER ALIGN (MOBILE ONLY)
    ========================================= */
 
 @media (max-width: 768px) {
+
   footer,
-  footer > .py-4 .container {
+  footer>.py-4 .container {
     text-align: center;
   }
 
@@ -642,7 +702,7 @@ li {
   footer .navbar-brand,
   footer .d-flex.gap-3,
   footer .footer-links li,
-  footer > .py-4 .d-flex {
+  footer>.py-4 .d-flex {
     justify-content: center;
   }
 
@@ -748,7 +808,7 @@ footer .newsletter-group .btn-red {
 }
 
 /* Bottom bar */
-footer > .py-4 {
+footer>.py-4 {
   border-top: 1px solid var(--border-zinc-800);
 }
 
@@ -905,7 +965,8 @@ LOGIN PAGE REFINEMENTS
 .login-card-refined {
   background: var(--bg-zinc-900);
   border: 1px solid var(--border-zinc-800);
-  padding: clamp(1.5rem, 5vw, 2.5rem); /* Fluid padding */
+  padding: clamp(1.5rem, 5vw, 2.5rem);
+  /* Fluid padding */
   border-radius: 24px;
   width: 100%;
   max-width: 420px;
@@ -963,7 +1024,8 @@ LOGIN PAGE REFINEMENTS
 
 /* --- Social Buttons Alignment & Visibility --- */
 .btn-social-auth {
-  background: var(--bg-zinc-900); /* Darker gray for contrast */
+  background: var(--bg-zinc-900);
+  /* Darker gray for contrast */
   border: 1px solid var(--border-zinc-800);
   color: var(--text-color) !important;
   padding: 10px 12px;
@@ -979,7 +1041,8 @@ LOGIN PAGE REFINEMENTS
 
 /* Specific visibility boost for Dark Mode */
 [data-theme="dark"] .btn-social-auth {
-  background: #121214; /* Slightly lighter than pure black */
+  background: #121214;
+  /* Slightly lighter than pure black */
   border-color: #2d2d30;
 }
 
@@ -998,12 +1061,14 @@ LOGIN PAGE REFINEMENTS
 
 /* --- Validation UI --- */
 .auth-input.is-invalid {
-  border-color: #dc3545 !important; /* Red border */
+  border-color: #dc3545 !important;
+  /* Red border */
   background-image: none !important;
 }
 
 .auth-input.is-valid {
-  border-color: #198754 !important; /* Green border */
+  border-color: #198754 !important;
+  /* Green border */
   background-image: none !important;
 }
 
@@ -1019,23 +1084,23 @@ LOGIN PAGE REFINEMENTS
 
 /* --- Autofill Styling Fix --- */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    /* This overrides the blue/yellow background */
-    -webkit-box-shadow: 0 0 0 1000px var(--bg-black) inset !important;
-    /* This overrides the black text color to match your theme */
-    -webkit-text-fill-color: var(--text-color) !important;
-    transition: background-color 5000s ease-in-out 0s;
+  /* This overrides the blue/yellow background */
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-black) inset !important;
+  /* This overrides the black text color to match your theme */
+  -webkit-text-fill-color: var(--text-color) !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 /* Ensure the border stays visible based on validation status during autofill */
 input.is-valid:-webkit-autofill {
-    border-color: #10b981 !important;
+  border-color: #10b981 !important;
 }
 
 input.is-invalid:-webkit-autofill {
-    border-color: #ff4d4d !important;
+  border-color: #ff4d4d !important;
 }
 
 /* Real-time Error Text */
@@ -1043,46 +1108,48 @@ input.is-invalid:-webkit-autofill {
   color: #ff4d4d;
   font-size: 0.75rem;
   margin-top: 5px;
-  height: 18px; /* Prevents jumping */
+  height: 18px;
+  /* Prevents jumping */
   font-weight: 500;
 }
 
 /* Custom Alert Popup */
 /* --- Updated Auth Popup --- */
 .auth-popup {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 15px 25px;
-    border-radius: 12px;
-    color: white;
-    font-weight: 600;
-    z-index: 9999;
-    /* Default hidden state */
-    display: none; 
-    opacity: 0;
-    transform: translateX(120%);
-    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 25px;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  z-index: 9999;
+  /* Default hidden state */
+  display: none;
+  opacity: 0;
+  transform: translateX(120%);
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .auth-popup.show {
-    opacity: 1;
-    transform: translateX(0);
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Spinner Color Match */
 .spinner-border-sm {
-    --bs-spinner-width: 1rem;
-    --bs-spinner-height: 1rem;
-    --bs-spinner-border-width: 0.15em;
+  --bs-spinner-width: 1rem;
+  --bs-spinner-height: 1rem;
+  --bs-spinner-border-width: 0.15em;
 }
 
 /* Ensure the spinner is visible on the red button regardless of theme */
 #btnSpinner {
-    border-color: rgba(241, 153, 153, 0.842); /* Transparent white border */
-    border-right-color: #ff0505; 
-    /* color: white; */
+  border-color: rgba(241, 153, 153, 0.842);
+  /* Transparent white border */
+  border-right-color: #ff0505;
+  /* color: white; */
 }
 
 /* Red/Black/White Theme for Alerts */
@@ -1090,6 +1157,7 @@ input.is-invalid:-webkit-autofill {
   background: #10b981;
   border-left: 5px solid #064e3b;
 }
+
 .popup-error {
   background: #ef4444;
   border-left: 5px solid #7f1d1d;
@@ -1099,6 +1167,7 @@ input.is-invalid:-webkit-autofill {
 .auth-input.is-invalid {
   border-color: #ff4d4d !important;
 }
+
 .auth-input.is-valid {
   border-color: #10b981 !important;
 }
@@ -1109,8 +1178,10 @@ input.is-invalid:-webkit-autofill {
     font-size: 0.8rem;
     padding: 10px 8px;
   }
+
   .btn-social-auth span {
-    display: inline-block; /* Keeps text visible but prevents overlap */
+    display: inline-block;
+    /* Keeps text visible but prevents overlap */
   }
 }
 
@@ -1151,7 +1222,8 @@ input.is-invalid:-webkit-autofill {
   }
 
   .min-vh-100-nav {
-    align-items: flex-start; /* Better for scrolling on short phones */
+    align-items: flex-start;
+    /* Better for scrolling on short phones */
     padding-top: 20px;
   }
 }
@@ -1159,4 +1231,61 @@ input.is-invalid:-webkit-autofill {
 
 ::-webkit-scrollbar {
   width: 8px;
+}
+
+
+
+/* =========================================
+   CLEAN RESPONSIVE RESET (FINAL FIX)
+   ========================================= */
+
+@media (max-width: 991px) {
+  /* Navbar Overrides */
+  .navbar-actions, .navbar-collapse {
+    display: none !important;
+  }
+  
+  .mobile-toggle {
+    display: block !important;
+  }
+
+  /* Section Fixes */
+  .section-padding {
+    padding: 60px 0;
+  }
+
+  .hero-title {
+    font-size: 2.2rem !important;
+    line-height: 1.2;
+  }
+
+  /* Force cards to show on mobile */
+  .col-md-4, .col-lg-3, .col-lg-4 {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  footer {
+    text-align: center;
+  }
+  
+  footer .navbar-brand,
+  footer .d-flex.gap-3,
+  footer .footer-links li,
+  footer .py-4 .d-flex {
+    justify-content: center;
+  }
+
+  .offcanvas-mobile {
+    background-color: var(--bg-zinc-950) !important;
+    width: 85% !important;
+  }
+}
+
+/* Fix for horizontal scroll */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
 }

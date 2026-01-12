@@ -7,11 +7,15 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import {
   getFirestore,
   doc,
   setDoc,
+  getDoc,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // 2. YOUR FIREBASE CONFIGURATION
@@ -51,56 +55,39 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme") || "dark";
   applyTheme(savedTheme);
 
-  document
-    .querySelectorAll("#theme-toggle, #theme-toggle-mobile")
-    .forEach((btn) => {
-      btn?.addEventListener("click", () => {
-        const newTheme =
-          root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-        applyTheme(newTheme);
-      });
+  document.querySelectorAll("#theme-toggle, #theme-toggle-mobile").forEach((btn) => {
+    btn?.addEventListener("click", () => {
+      const newTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      applyTheme(newTheme);
     });
+  });
 
-  // --- AUTOMATIC NAVBAR SWITCHER (Auth Listener) ---
-  const loginNav = document.getElementById("login-nav");
-  const profileNav = document.getElementById("user-profile-nav");
-
+  // --- AUTOMATIC NAVBAR SWITCHER ---
   onAuthStateChanged(auth, (user) => {
     const loginNav = document.getElementById("login-nav");
     const profileNav = document.getElementById("user-profile-nav");
     const mobileLogin = document.getElementById("mobile-login-nav");
     const mobileProfile = document.getElementById("mobile-profile-nav");
 
-    if (user) {
-        // User is logged in
-        if (loginNav) loginNav.style.display = "none";
-        if (profileNav) profileNav.style.display = "block";
-        if (mobileLogin) mobileLogin.style.display = "none";
-        if (mobileProfile) mobileProfile.style.display = "block";
-    } else {
-        // User is logged out
-        if (loginNav) loginNav.style.display = "block";
-        if (profileNav) profileNav.style.display = "none";
-        if (mobileLogin) mobileLogin.style.display = "block";
-        if (mobileProfile) mobileProfile.style.display = "none";
-    }
-    // Refresh icons so the user icon shows up correctly
+    const isLoggedIn = !!user;
+    if (loginNav) loginNav.style.display = isLoggedIn ? "none" : "block";
+    if (profileNav) profileNav.style.display = isLoggedIn ? "block" : "none";
+    if (mobileLogin) mobileLogin.style.display = isLoggedIn ? "none" : "block";
+    if (mobileProfile) mobileProfile.style.display = isLoggedIn ? "block" : "none";
+
     if (window.lucide) lucide.createIcons();
   });
 
-  // --- UI HELPERS (Popups & Spinners) ---
+  // --- UI HELPERS ---
   const alertBox = document.getElementById("auth-alert");
   const showPopup = (message, type) => {
     if (!alertBox) return;
     alertBox.textContent = message;
-    alertBox.className = `auth-popup show ${type === "success" ? "popup-success" : "popup-error"
-      }`;
+    alertBox.className = `auth-popup show ${type === "success" ? "popup-success" : "popup-error"}`;
     alertBox.style.display = "block";
     setTimeout(() => {
       alertBox.classList.remove("show");
-      setTimeout(() => {
-        alertBox.style.display = "none";
-      }, 400);
+      setTimeout(() => { alertBox.style.display = "none"; }, 400);
     }, 4000);
   };
 
@@ -113,18 +100,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (spinner) spinner.style.display = isLoading ? "inline-block" : "none";
   };
 
-  // --- LOGIN LOGIC (login.html) ---
+  // --- AUTH LOGIC (Forms) ---
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
-
       setBtnLoading(true, "Sign In");
       try {
         await signInWithEmailAndPassword(auth, email, password);
-        showPopup("Login Successful! Redirecting...", "success");
+        showPopup("Login Successful!", "success");
         setTimeout(() => (window.location.href = "index.html"), 1500);
       } catch (error) {
         setBtnLoading(false, "Sign In");
@@ -133,7 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- REGISTRATION LOGIC (register.html) ---
   const registerForm = document.getElementById("registerForm");
   if (registerForm) {
     registerForm.addEventListener("submit", async (e) => {
@@ -143,26 +128,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = document.getElementById("password").value;
       const confirm = document.getElementById("confirmPassword").value;
 
-      if (password !== confirm)
-        return showPopup("Passwords do not match!", "error");
-
+      if (password !== confirm) return showPopup("Passwords do not match!", "error");
       setBtnLoading(true, "Create Account");
       try {
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        const user = userCredential.user;
-
-        // Save User Name to Firestore
-        await setDoc(doc(db, "users", user.uid), {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await setDoc(doc(db, "users", userCredential.user.uid), {
           fullname: name,
           email: email,
           joinedAt: new Date(),
           subscription: "Free",
         });
-
         showPopup("Account Created Successfully!", "success");
         setTimeout(() => (window.location.href = "index.html"), 2000);
       } catch (error) {
@@ -172,47 +147,82 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- FORGOT PASSWORD LOGIC (forgot-password.html) ---
-  const forgotForm = document.getElementById("forgotForm");
-  if (forgotForm) {
-    forgotForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
+  // --- SOCIAL LOGIN LOGIC ---
+  const handleSocialLogin = async (provider) => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      await setDoc(doc(db, "users", result.user.uid), {
+        fullname: result.user.displayName,
+        email: result.user.email,
+        joinedAt: new Date(),
+        subscription: "Free"
+      }, { merge: true });
+      window.location.href = "index.html";
+    } catch (error) {
+      console.error("Social Auth Error:", error.message);
+      showPopup(error.message, "error");
+    }
+  };
 
-      setBtnLoading(true, "Send Reset Link");
+  const googleBtn = document.querySelector('.btn-social-auth:has(img[alt*="Google" i])');
+  const githubBtn = document.querySelector('.btn-social-auth:has(img[alt*="GitHub" i])');
+
+  googleBtn?.addEventListener("click", () => handleSocialLogin(new GoogleAuthProvider()));
+  githubBtn?.addEventListener("click", () => handleSocialLogin(new GithubAuthProvider()));
+
+  // --- PROFILE PAGE LOGIC ---
+  const profileContainer = document.getElementById("welcome-name");
+  if (profileContainer) {
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
       try {
-        await sendPasswordResetEmail(auth, email);
-        showPopup("Success! Reset link sent to your email.", "success");
-        setBtnLoading(false, "Send Reset Link");
+        const userSnap = await getDoc(doc(db, "users", user.uid));
+        if (userSnap.exists()) {
+          const data = userSnap.data();
+          
+          // Populate UI
+          const elements = {
+            "side-fullname": data.fullname || "User",
+            "side-email": data.email,
+            "welcome-name": data.fullname || "Student",
+            "display-fullname": data.fullname || "Not Provided",
+            "display-email": data.email,
+            "display-plan": data.subscription || "Free",
+            "display-validity": data.subscription === "Free" ? "Lifetime" : "30 Days Remaining"
+          };
+
+          Object.entries(elements).forEach(([id, val]) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = val;
+          });
+
+          if (data.joinedAt) {
+            const joinedEl = document.getElementById("display-joined");
+            if (joinedEl) joinedEl.textContent = data.joinedAt.toDate().toLocaleDateString('en-IN');
+          }
+        }
       } catch (error) {
-        setBtnLoading(false, "Send Reset Link");
-        showPopup("Error: " + error.message, "error");
+        console.error("Error loading profile:", error);
       }
     });
   }
 
-  // --- LOGOUT LOGIC ---
-  const logoutBtn = document.getElementById("logout-link");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      signOut(auth).then(() => (window.location.href = "index.html"));
-    });
-  }
+  // --- LOGOUT & ANIMATIONS ---
+  document.getElementById("logout-link")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    signOut(auth).then(() => (window.location.href = "index.html"));
+  });
 
-  // --- SCROLL REVEAL ANIMATIONS ---
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("active");
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-  document
-    .querySelectorAll(".reveal")
-    .forEach((el) => revealObserver.observe(el));
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
 });
